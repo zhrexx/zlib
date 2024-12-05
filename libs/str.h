@@ -69,6 +69,22 @@ int compare(const char* str1, const char* str2) {
     return (*str1 == '\0' && *str2 == '\0') ? 0 : (*str1 == '\0') ? -1 : 1;
 }
 
+bool starts_with(const char *prefix, const char *string)
+{
+    return strncmp(prefix, string, strlen(prefix)) == 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

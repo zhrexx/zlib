@@ -1,0 +1,2 @@
+enable_verbose();
+compile(test.c, test);
