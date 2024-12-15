@@ -75,7 +75,37 @@ bool starts_with(const char *prefix, const char *string)
 }
 
 
+// Code taken from https://stackoverflow.com/a/779960 with some change
+char *replace(char *original, const char *search, const char *replace_with) {
+    if (!original || !search || strlen(search) == 0) return NULL;
+    if (!replace_with) replace_with = "";
 
+    int search_len = strlen(search), replace_len = strlen(replace_with);
+    int occurrences = 0;
+    char *current_pos = original;
+
+    while ((current_pos = strstr(current_pos, search))) {
+        occurrences++;
+        current_pos += search_len;
+    }
+
+    if (occurrences == 0) return original;
+
+    char *result = malloc(strlen(original) + (replace_len - search_len) * occurrences + 1);
+    if (!result) return NULL;
+
+    char *temp = result;
+    current_pos = original;
+    while (occurrences--) {
+        char *match_pos = strstr(current_pos, search);
+        temp = strncpy(temp, current_pos, match_pos - current_pos) + (match_pos - current_pos);
+        temp = strcpy(temp, replace_with) + replace_len;
+        current_pos = match_pos + search_len;
+    }
+
+    strcpy(temp, current_pos);
+    return result;
+}
 
 
 

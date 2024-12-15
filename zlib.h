@@ -34,6 +34,7 @@ Vector *zerr = NULL;
 #include "libs/menv_api.h"
 #include "libs/requests.h"
 #include "libs/hashmap.h"
+#include "libs/flag.h"
 
 // FUNCTION needs_rebuild
 #include "libs/useful.h"
