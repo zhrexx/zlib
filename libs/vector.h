@@ -18,12 +18,6 @@ typedef struct {
     size_t element_size;
 } Vector;
 
-#define VECTOR_FOR_EACH(type, element, vector)                                \
-    for (type *element = (type *)(vector)->data;                              \
-         (char *)element < (char *)(vector)->data + (vector)->size * (vector)->element_size; \
-         element++)
-
-
 
 void vector_init(Vector *vector, size_t initial_capacity, size_t element_size);
 void vector_resize(Vector *vector, size_t new_capacity);
