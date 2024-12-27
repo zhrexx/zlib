@@ -13,6 +13,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 char* from(const char* src, int init, int finish) {
     if (init < 0 || finish < 0 || init >= finish || finish > strlen(src)) {

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include "vector.h"
 
 Vector *zerr = NULL;
 
@@ -49,22 +50,6 @@ void not_impl_yet(char *name) {
 }
 
 
-void throw_error(Error error_code) {
-    if (zerr == NULL) {
-        init_zlib();
-    }
-
-    vector_push(zerr, &error_code);
-}
-
-bool check_error(Error error_code) {
-    if (zerr == NULL) {
-        init_zlib();
-    }
-
-    return vector_contains(zerr, &error_code);
-}
-
 void init_zerr() {
      zerr = (Vector *)malloc(sizeof(Vector));
      if (!zerr) {
@@ -74,6 +59,23 @@ void init_zerr() {
 
     vector_init(zerr, 10, sizeof(Error));
 }
+
+void throw_error(Error error_code) {
+    if (zerr == NULL) {
+        init_zerr();
+    }
+
+    vector_push(zerr, &error_code);
+}
+
+bool check_error(Error error_code) {
+    if (zerr == NULL) {
+        init_zerr();
+    }
+
+    return vector_contains(zerr, &error_code);
+}
+
 
 
 #endif
