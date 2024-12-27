@@ -166,4 +166,23 @@ Vector parse_pargs(int argc, char **argv) {
 }
 
 
+Vector split_to_vector(const char* src, const char* delimiter) {
+    char* src_copy = strdup(src);
+    char* token;
+    Vector result;
+    vector_init(result, 10, sizeof(char *));
+	
+    token = strtok(src_copy, delimiter);
+    while (token != NULL) {
+        vector_push(result, strdup(token));
+        token = strtok(NULL, delimiter);
+    }
+
+    free(src_copy);
+    return result;
+}
+
+
+
+
 
