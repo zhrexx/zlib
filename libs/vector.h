@@ -179,6 +179,7 @@ Vector split_to_vector(const char* src, const char* delimiter) {
     }
 
     free(src_copy);
+    vector_compress(&result);
     return result;
 }
 
