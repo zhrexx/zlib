@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
-#include "vector.h"
+#include "../collections/vector.h"
 
 Vector *zerr = NULL;
 
