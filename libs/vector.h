@@ -151,3 +151,19 @@ void vector_free(Vector *vector) {
     vector->capacity = 0;
     vector->element_size = 0;
 }
+
+
+
+Vector parse_pargs(int argc, char **argv) {
+    Vector pargs_vector;
+    vector_init(&pargs_vector, 3, sizeof(char *));
+    for (int i; i < argc; i++) {
+	vector_push(&pargs_vector, argv[i]);
+    }
+
+	
+    return pargs_vector;
+}
+
+
+
