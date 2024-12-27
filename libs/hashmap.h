@@ -1,3 +1,6 @@
+#ifndef HASHMAP_H
+#define HASHMAP_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -140,3 +143,5 @@ void hashmap_free(HashMap *map) {
     map->size = 0;
     map->capacity = 0;
 }
+
+#endif

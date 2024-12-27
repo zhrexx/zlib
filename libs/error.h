@@ -4,12 +4,14 @@
 // Author(s): ZHRXXgroup
 // Version: 1
 // ========================================================================================>
-
-
+#ifndef ERROR_H
+#define ERROR_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+
+Vector *zerr = NULL;
 
 typedef enum {
     NO_ERROR = 0,
@@ -45,3 +47,33 @@ void throw_error_with_no_errorcode(const char *format, ...) {
 void not_impl_yet(char *name) {
     throw_error_with_no_errorcode("'%s' is not implemented yet!", name);
 }
+
+
+void throw_error(Error error_code) {
+    if (zerr == NULL) {
+        init_zlib();
+    }
+
+    vector_push(zerr, &error_code);
+}
+
+bool check_error(Error error_code) {
+    if (zerr == NULL) {
+        init_zlib();
+    }
+
+    return vector_contains(zerr, &error_code);
+}
+
+void init_zerr() {
+     zerr = (Vector *)malloc(sizeof(Vector));
+     if (!zerr) {
+        fprintf(stderr, "Failed to allocate memory for zerr (zerr = ZLIB ERRORSTREAM = ~stderr )\n");
+        exit(EXIT_FAILURE);
+     }
+
+    vector_init(zerr, 10, sizeof(Error));
+}
+
+
+#endif

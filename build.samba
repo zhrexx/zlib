@@ -1,3 +1,4 @@
+default:
 enable_verbose();
-compile(test.c, test);
-generate_build_report_to_file(test.outbuild);
+compile("test.c", "test");
+

@@ -1,3 +1,6 @@
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -35,3 +38,5 @@ char *input(char *prompt) {
 
     return input_;
 }
+
+#endif

@@ -8,7 +8,9 @@
 
 
 
-#ifdef MENV_IMPLEMENTATION
+#ifndef MENV_H
+#define MENV_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

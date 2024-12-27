@@ -5,6 +5,8 @@
 // Version: 1
 // ========================================================================================>
 
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -170,11 +172,11 @@ Vector split_to_vector(const char* src, const char* delimiter) {
     char* src_copy = strdup(src);
     char* token;
     Vector result;
-    vector_init(result, 10, sizeof(char *));
+    vector_init(&result, 10, sizeof(char *));
 	
     token = strtok(src_copy, delimiter);
     while (token != NULL) {
-        vector_push(result, strdup(token));
+        vector_push(&result, strdup(token));
         token = strtok(NULL, delimiter);
     }
 
@@ -185,5 +187,5 @@ Vector split_to_vector(const char* src, const char* delimiter) {
 
 
 
-
+#endif
 

@@ -5,6 +5,9 @@
 // Version: 1
 // ========================================================================================>
 
+#ifndef STR_H
+#define STR_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -175,3 +178,4 @@ unsigned char* base64_decode(const char* encoded_data, size_t* output_length) {
     return decoded_data;
 }
 
+#endif

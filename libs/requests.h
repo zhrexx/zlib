@@ -7,6 +7,10 @@
 // IMPORTANT This File is Experimental and May Contain Bugs
 // ========================================================================================>
 
+#ifndef REQUESTS_H
+#define REQUESTS_H
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -165,3 +169,5 @@ void free_http_response(HttpResponse *response) {
         free(response);
     }
 }
+
+#endif // REQUESTS_H

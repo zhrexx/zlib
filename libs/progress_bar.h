@@ -1,4 +1,6 @@
-#ifdef PROGRESS_BAR_INIT
+#ifndef PROGRESSBAR_H
+#define PROGRESSBAR_H
+
 #include <stdio.h>
 
 typedef struct {

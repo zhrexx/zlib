@@ -7,7 +7,8 @@
 
 
 
-#ifdef LOGGER_INIT
+#ifndef LOGGER_H
+#define LOGGER_H
 typedef enum {
     LOG_SUCCESS,
     LOG_INFO,

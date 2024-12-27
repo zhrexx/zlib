@@ -1,3 +1,5 @@
+#ifndef COLOR_H
+#define COLOR_H
 #ifdef COLOR_INIT
 
 const char *COLOR_BLACK = "\033[0;30m";
@@ -10,5 +12,5 @@ const char *COLOR_RESET = "\033[0m";
 
 #endif
 
-
+#endif
 
