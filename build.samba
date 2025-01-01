@@ -1,4 +1,4 @@
-default:
+install:
 enable_verbose();
-compile("test.c", "test");
-
+compile("zlib.c", "zlib");
+s_command("./build/zlib");

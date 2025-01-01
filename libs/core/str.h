@@ -15,6 +15,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "int.h"
+
 char* from(const char* src, int init, int finish) {
     if (init < 0 || finish < 0 || init >= finish || finish > strlen(src)) {
         return NULL;
@@ -177,6 +179,19 @@ unsigned char* base64_decode(const char* encoded_data, size_t* output_length) {
     }
 
     return decoded_data;
+}
+
+char *generate_random_string(int length) {
+    char *random_string = (char *)malloc(length + 1);
+    if (random_string == NULL) return NULL;
+
+    const char *charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    size_t charset_length = strlen(charset);
+    for (int i = 0; i < length; i++) {
+        random_string[i] = charset[random_int(0, charset_length)];
+    }
+    random_string[length] = '\0';
+    return random_string;
 }
 
 #endif
