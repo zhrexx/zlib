@@ -1,4 +1,2 @@
 install:
 enable_verbose();
-compile("zlib.c", "zlib");
-s_command("./build/zlib");
