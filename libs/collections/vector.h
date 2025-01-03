@@ -68,6 +68,7 @@ void vector_push(Vector *vector, const void *value) {
     vector->size++;
 }
 
+// ! *(type *) you need to cast to get result
 void *vector_get(Vector *vector, size_t index) {
     if (index >= vector->size) {
         fprintf(stderr, "Index out of bounds\n");
@@ -154,6 +155,10 @@ void vector_free(Vector *vector) {
     vector->element_size = 0;
 }
 
+size_t vector_len(Vector *vector) {
+    return vector->size;
+}
+
 
 
 Vector parse_pargs(int argc, char **argv) {
@@ -183,6 +188,16 @@ Vector split_to_vector(const char* src, const char* delimiter) {
     free(src_copy);
     vector_compress(&result);
     return result;
+}
+
+
+char *vector_get_str(Vector *vector, size_t index) {
+    void *pointer = vector_get(vector, index);
+    return *(char **)pointer;
+}
+int vector_get_int(Vector *vector, size_t index) {
+    void *pointer = vector_get(vector, index);
+    return *(int *)pointer;
 }
 
 

@@ -194,4 +194,9 @@ char *generate_random_string(int length) {
     return random_string;
 }
 
+
+int contains(const char *str, const char *sub) {
+    return strstr(str, sub) != NULL;
+}
+
 #endif

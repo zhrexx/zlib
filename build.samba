@@ -1,2 +1,4 @@
-install:
-enable_verbose();
+tests:
+    enable_verbose();
+    compile("test.c", "test");
+    s_command("./build/test");
