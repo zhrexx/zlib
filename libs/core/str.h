@@ -80,6 +80,15 @@ bool starts_with(const char *prefix, const char *string)
     return strncmp(prefix, string, strlen(prefix)) == 0;
 }
 
+bool ends_with(const char *suffix, const char *string)
+{
+    size_t string_len = strlen(string);
+    size_t suffix_len = strlen(suffix);
+
+    if (suffix_len > string_len) return false;
+
+    return strncmp(string + string_len - suffix_len, suffix, suffix_len) == 0;
+}
 
 // Code taken from https://stackoverflow.com/a/779960 with some change
 char *replace(char *original, const char *search, const char *replace_with) {
@@ -114,13 +123,23 @@ char *replace(char *original, const char *search, const char *replace_with) {
 }
 
 
+char* strip(const char* str, char ch) {
+    if (!str) return NULL;
 
+    const char* start = str;
+    while (*start == ch) start++;
 
+    const char* end = str + strlen(str) - 1;
+    while (end > start && *end == ch) end--;
 
+    size_t new_len = end - start + 1;
+    char* result = (char*)malloc(new_len + 1);
+    if (!result) return NULL;
 
-
-
-
+    strncpy(result, start, new_len);
+    result[new_len] = '\0';
+    return result;
+}
 
 
 

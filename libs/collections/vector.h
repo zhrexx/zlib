@@ -145,8 +145,6 @@ void vector_copy(Vector *dest, const Vector *src) {
 }
 
 
-
-
 void vector_free(Vector *vector) {
     free(vector->data);
     vector->data = NULL;
@@ -159,16 +157,30 @@ size_t vector_len(Vector *vector) {
     return vector->size;
 }
 
+void *vector_pop(Vector *vector) {
+    if (vector.size == 0) {
+        fprintf(stderr, "Vector is empty\n");
+        exit(EXIT_FAILURE);
+    }
+
+    void *last_element = vector_get(vector, vector.size - 1);
+    vector_remove(vector, vector.size - 1);
+
+    return last_element;
+}
 
 
+
+
+// Useful stuff
 Vector parse_pargs(int argc, char **argv) {
     Vector pargs_vector;
     vector_init(&pargs_vector, 3, sizeof(char *));
-    for (int i; i < argc; i++) {
-	vector_push(&pargs_vector, argv[i]);
+    for (int i = 0; i < argc; i++) {
+	    char *arg = strdup(argv[i]);
+        vector_push(&pargs_vector, &arg);
     }
 
-	
     return pargs_vector;
 }
 
@@ -195,6 +207,7 @@ char *vector_get_str(Vector *vector, size_t index) {
     void *pointer = vector_get(vector, index);
     return *(char **)pointer;
 }
+
 int vector_get_int(Vector *vector, size_t index) {
     void *pointer = vector_get(vector, index);
     return *(int *)pointer;
