@@ -158,13 +158,13 @@ size_t vector_len(Vector *vector) {
 }
 
 void *vector_pop(Vector *vector) {
-    if (vector.size == 0) {
+    if (vector->size == 0) {
         fprintf(stderr, "Vector is empty\n");
         exit(EXIT_FAILURE);
     }
 
-    void *last_element = vector_get(vector, vector.size - 1);
-    vector_remove(vector, vector.size - 1);
+    void *last_element = vector_get(vector, vector->size - 1);
+    vector_remove(vector, vector->size - 1);
 
     return last_element;
 }

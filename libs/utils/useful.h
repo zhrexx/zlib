@@ -42,3 +42,14 @@ int needs_rebuild(const char *source_file, const char *executable, char **argv) 
 
     return 0;
 }
+
+
+void shift_program_name(int *argc, char **argv) {
+    if (*argc > 1) {
+        for (int i = 1; i < *argc; i++) {
+            argv[i - 1] = argv[i];
+        }
+        argv[*argc - 1] = NULL;
+        (*argc)--;
+    }
+}
