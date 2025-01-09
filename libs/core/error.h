@@ -12,7 +12,7 @@
 #include <stdarg.h>
 #include "../collections/vector.h"
 #define COLOR_INIT
-#include "../utils/color.h"
+#include "../utils/console.h"
 
 static Vector *zerr = NULL;
 

@@ -28,7 +28,7 @@ char *input(char *prompt) {
 }
 
 
-#endif STDIN_H
+#endif
 
 
 

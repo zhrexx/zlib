@@ -58,7 +58,7 @@ void map_resize(Map *map, size_t new_capacity) {
     map->capacity = new_capacity;
 }
 
-void map_set(Map *map, const char *key, const void *value, size_t value_size) {
+void map_push(Map *map, const char *key, const void *value, size_t value_size) {
     for (size_t i = 0; i < map->size; i++) {
         if (strcmp(map->entries[i].key, key) == 0) {
             free(map->entries[i].value);

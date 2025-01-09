@@ -133,11 +133,13 @@ char* strip(const char* str, char ch) {
     while (end > start && *end == ch) end--;
 
     size_t new_len = end - start + 1;
+
     char* result = (char*)malloc(new_len + 1);
     if (!result) return NULL;
 
-    strncpy(result, start, new_len);
+    memcpy(result, start, new_len);
     result[new_len] = '\0';
+
     return result;
 }
 

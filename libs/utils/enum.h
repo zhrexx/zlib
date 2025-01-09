@@ -3,15 +3,15 @@
 #include <stdbool.h>
 
 
-static int enum_counter = 0;
+int enumCounter = 0;
 int enumerate(bool reset) {
     if (reset) {
-        enum_counter = 0;
+        enumCounter = 0;
     }
 
-    enum_counter++;
+    enumCounter++;
 
-    return enum_counter;
+    return enumCounter;
 }
 
 #endif // ENUM_H

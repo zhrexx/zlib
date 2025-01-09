@@ -2,3 +2,10 @@ tests:
     enable_verbose();
     compile("test.c", "test");
     s_command("./build/test");
+
+
+examples:
+    enable_verbose();
+    add_flag("-I.");
+    compile("examples/tcp.c", "tcp");
+    compile("examples/vector.c", "vector");
