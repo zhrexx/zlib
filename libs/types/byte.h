@@ -122,5 +122,16 @@ int bytearray_len(bytearray *b) {
     return b->size;
 }
 
+void bytearray_write_bytes(bytearray *b, FILE *fp) {
+    if (!b || !b->data || !fp) {
+        return;
+    }
+    size_t bytesWritten = fwrite(b->data, sizeof(byte), b->size, fp);
+    if (bytesWritten != b->size) {
+        perror("Error writing bytes to file");
+    }
+}
+
+
 
 #endif // BYTE_H

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "libs/core/inet.h"
+#include "libs/net/inet.h"
 
 void handle(int client_socket) {
     char buffer[1024];
