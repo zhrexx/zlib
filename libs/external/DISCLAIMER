@@ -2,3 +2,6 @@ Important Notice: All Header Files in This Folder Are Not Our Property
 These header files are provided solely for use with our library.
 
 Please note that some libraries may be wrapped in the future.
+
+Wrappers:
+- wrappers/miniwrapper.h | A wrapper for miniaudio

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include "libs/utils/progress_bar.h"
 
 int main() {

@@ -146,6 +146,18 @@ void vector_copy(Vector *dest, const Vector *src) {
 
 
 void vector_free(Vector *vector) {
+    if (vector->element_size == sizeof(char *)) {
+        for (size_t i = 0; i < vector->size; i++) {
+            char **element = (char **)vector_get(vector, i);
+            free(*element);
+        }
+    } else if (vector->element_size == sizeof(Vector)) {
+        for (size_t i = 0; i < vector->size; i++) {
+            Vector *nested = (Vector *)vector_get(vector, i);
+            vector_free(nested);
+        }
+    }
+
     free(vector->data);
     vector->data = NULL;
     vector->size = 0;
@@ -212,6 +224,7 @@ Vector split_to_vector(const char* src, const char* delimiter) {
     free(src_copy);
     return result;
 }
+
 
 
 char *vector_get_str(Vector *vector, size_t index) {

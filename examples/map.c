@@ -9,10 +9,10 @@ int main(int argc, char **argv) {
 
     // Set key-value pairs in the map
     int value1 = 42;
-    map_set(&map, "key1", &value1, sizeof(value1));
+    map_push(&map, "key1", &value1, sizeof(value1));
 
     const char *value2 = "Hello, World!";
-    map_set(&map, "key2", &value2, sizeof(value2));
+    map_push(&map, "key2", &value2, sizeof(value2));
 
     // Get and print values by key
     int *retrieved_value1 = (int *)map_get(&map, "key1");

@@ -7,5 +7,12 @@ tests:
 examples:
     enable_verbose();
     add_flag("-I.");
+    add_flag("-lm");
     compile("examples/tcp.c", "tcp");
+    compile("examples/map.c", "map");
+    compile("examples/hashmap.c", "hashmap");
+    compile("examples/miniwrapper.c", "miniwrapper");
+    compile("examples/progress_bar.c", "progress_bar");
+    compile("examples/zmath.c", "zmath");
     compile("examples/vector.c", "vector");
+    compile("examples/lexer.c", "lexer");

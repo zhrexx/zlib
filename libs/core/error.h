@@ -111,5 +111,24 @@ void throw_error(Error error_code, const char *msg, ...) {
     }
 }
 
+//////////////////////////////////////////////////////////
+// Real error.h
+//////////////////////////////////////////////////////////
+
+void panic(char *msg, ...) {
+    va_list args;
+    va_start(args, msg);
+    vprintf(msg, args);
+    va_end(args);
+    exit(EXIT_FAILURE);
+}
+
+// assert from error.h
+void essert(int cond, char *msg) {
+    if (!cond) {
+        panic(msg);
+    }
+}
+
 
 #endif // ERROR_H
