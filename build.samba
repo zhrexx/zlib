@@ -1,18 +1,21 @@
-tests:
-    enable_verbose();
-    compile("test.c", "test");
-    s_command("./build/test");
 
+wrapper:
+    enable_verbose();
+    s_command("gcc -c wrapper.c -o build/wrapper.o");
+    s_command("ar rcs build/libzlib.a build/wrapper.o");
+    s_command("gcc -fPIC -c wrapper.c -o build/wrapper.o");
+    s_command("gcc -shared -o build/libzlib.so build/wrapper.o");
 
 examples:
     enable_verbose();
     add_flag("-I.");
-    add_flag("-lm");
     compile("examples/tcp.c", "tcp");
     compile("examples/map.c", "map");
     compile("examples/hashmap.c", "hashmap");
+    add_flag("-lm");
     compile("examples/miniwrapper.c", "miniwrapper");
+    remove_flag("-lm");
     compile("examples/progress_bar.c", "progress_bar");
     compile("examples/zmath.c", "zmath");
     compile("examples/vector.c", "vector");
-    compile("examples/lexer.c", "lexer");
+    # Now in my repo simple lexer: compile("examples/lexer.c", "lexer");

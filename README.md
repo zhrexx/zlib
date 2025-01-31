@@ -10,5 +10,4 @@ Header files for Many Regions of work
 ## [ ] More cosole.h methods           ----- Level [**#]
 > No ideas
 ## [X] More inet.h methods             ----- Level [***]
-## [ ] Add more abstraction layers     ----- Level [***]
 ## [ ] More miniwrapper.h methods      ----- Level [**#]

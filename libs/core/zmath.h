@@ -215,8 +215,19 @@ double zm_factorial(int n) {
 }
 
 double zm_gamma(double x) {
-    return (x < 0.5) ? ZM_PI / (zm_sin(ZM_PI * x) * zm_gamma(1 - x)) : (x - 1) * zm_gamma(x - 1);
+    if (x <= 0) return ZM_NAN;
+    if (x == 1 || x == 2) return 1;
+    if (x < 1) {
+        return ZM_PI / (zm_sin(ZM_PI * x) * zm_gamma(1 - x));
+    }
+    double result = 1;
+    while (x > 2) {
+        x--;
+        result *= x;
+    }
+    return result * zm_sqrt(2 * ZM_PI / x) * zm_pow(x / ZM_E, x);
 }
+
 
 double zm_lgamma(double x) {
     return zm_log(zm_gamma(x));
@@ -237,5 +248,66 @@ int zm_isnan(double x) {
 int zm_isinf(double x) {
     return x == ZM_INFINITY || x == -ZM_INFINITY;
 }
+
+#ifdef ZM_STRIP_PREFIX
+    #define E            zm_E
+    #define LOG2E        zm_LOG2E
+    #define LOG10E       zm_LOG10E
+    #define LN2          zm_LN2
+    #define LN10         zm_LN10
+    #define PI           zm_PI
+    #define PI_2         zm_PI_2
+    #define PI_4         zm_PI_4
+    #define 1_PI         zm_1_PI
+    #define 2_PI         zm_2_PI
+    #define 2_SQRTPI     zm_2_SQRTPI
+    #define SQRT2        zm_SQRT2
+    #define SQRT1_2      zm_SQRT1_2
+    #define EULER        zm_EULER
+    #define TAU          zm_TAU
+    #define INFINITY     zm_INFINITY
+    #define NAN          zm_NAN
+    #define DECIMAL_DIG  zm_DECIMAL_DIG
+    #define RADIX        zm_RADIX
+    #define MANT_DIG     zm_MANT_DIG
+    #define MAX_EXP      zm_MAX_EXP
+    #define MIN_EXP      zm_MIN_EXP
+    #define MAX_10_EXP   zm_MAX_10_EXP
+    #define MIN_10_EXP   zm_MIN_10_EXP
+    #define MAX          zm_MAX
+    #define MIN          zm_MIN
+    #define EPSILON      zm_EPSILON
+    #define DIG          zm_DIG
+
+    #define cos          zm_cos
+    #define sin          zm_sin
+    #define tan          zm_tan
+    #define atan         zm_atan
+    #define exp          zm_exp
+    #define sinh         zm_sinh
+    #define cosh         zm_cosh
+    #define tanh         zm_tanh
+    #define pow          zm_pow
+    #define log          zm_log
+    #define sqrt         zm_sqrt
+    #define asin         zm_asin
+    #define acos         zm_acos
+    #define log10        zm_log10
+    #define abs          zm_abs
+    #define fabs         zm_fabs
+    #define ceil         zm_ceil
+    #define floor        zm_floor
+    #define round        zm_round
+    #define hypot        zm_hypot
+    #define deg2rad      zm_deg2rad
+    #define rad2deg      zm_rad2deg
+    #define factorial    zm_factorial
+    #define gamma        zm_gamma
+    #define lgamma       zm_lgamma
+    #define mod          zm_mod
+    #define trunc        zm_trunc
+    #define isnan        zm_isnan
+    #define isinf        zm_isinf
+#endif
 
 #endif
