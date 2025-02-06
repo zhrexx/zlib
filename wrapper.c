@@ -7,6 +7,7 @@
 #include "libs/core/allocator.h"
 #include "libs/core/error.h"
 #include "libs/core/int.h"
+#include "libs/core/core.h"
 #include "libs/core/str.h"
 #include "libs/core/zmath.h"
 #include "libs/io/stdin.h"
