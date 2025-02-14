@@ -6,6 +6,10 @@ wrapper:
     s_command("gcc -fPIC -c wrapper.c -o build/wrapper.o");
     s_command("gcc -shared -o build/libzlib.so build/wrapper.o");
 
+test:
+    enable_verbose();
+    s_command("gcc test.c -o test");
+
 examples:
     enable_verbose();
     add_flag("-I.");

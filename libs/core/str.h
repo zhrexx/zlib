@@ -220,6 +220,20 @@ int contains(const char *str, const char *sub) {
     return strstr(str, sub) != NULL;
 }
 
+// String reader
+static int sr_current_position = 0;
 
+char *sr_read(size_t chars, char *src) {
+    char *result = malloc(chars + 1);
+    strncpy(result, src + sr_current_position, chars);
+    result[chars] = '\0';
+    
+    sr_current_position += chars;
+    return result;
+}
+
+void sr_reset() {
+    sr_current_position = 0;
+}
 
 #endif
