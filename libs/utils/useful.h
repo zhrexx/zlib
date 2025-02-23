@@ -4,7 +4,8 @@
 // Author(s): ZHRXXgroup
 // Version: 1
 // ========================================================================================>
-
+#ifndef USEFUL_H
+#define USEFUL_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,13 +44,4 @@ int needs_rebuild(const char *source_file, const char *executable, char **argv) 
     return 0;
 }
 
-
-void shift_program_name(int *argc, char **argv) {
-    if (*argc > 1) {
-        for (int i = 1; i < *argc; i++) {
-            argv[i - 1] = argv[i];
-        }
-        argv[*argc - 1] = NULL;
-        (*argc)--;
-    }
-}
+#endif
