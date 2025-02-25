@@ -3,6 +3,7 @@
 // a minus is it can be only allocated up to 2gb | U can change the source code but only up to 4 gb
 #ifndef ALLOCATOR_H
 #define ALLOCATOR_H
+#include <stdio.h>
 
 #define ARENA_CAPACITY 1024 * 1024 * 2
 
