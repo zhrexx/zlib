@@ -1,26 +1,85 @@
-#ifndef ALLOCATOR_H
-#define ALLOCATOR_H
+#ifndef MEMORY_H
+#define MEMORY_H
 
-#include <string.h>
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <stdint.h>
 typedef unsigned long uintptr_t;
+typedef size_t Marker;
 
 #define ARENA_CAPACITY (1024 * 1024 * 2)
+
+extern void *memset(void *, int, size_t);
+extern void *memcpy(void *, const void *, size_t);
+extern int memcmp(const void *, const void *, unsigned int);
+extern size_t strlen(const char *);
+extern int printf(const char *, ...);
 
 typedef struct {
     char buffer[ARENA_CAPACITY];
     size_t size;
 } AArena;
 
+#define GUARD_SIZE 16
+#define CANARY_VALUE 0xDEADC0DE
+
+typedef struct {
+    size_t size;
+    uint32_t tag;
+    uint32_t canary;
+} AllocationHeader;
+
+
 static AArena global_arena = {0};
 
 void *aarena_alloc(AArena *arena, size_t size) {
-    if (arena->size + size > ARENA_CAPACITY) return NULL;
-    void *ptr = &arena->buffer[arena->size];
-    arena->size += size;
-    return ptr;
+    if (arena->size + size + sizeof(AllocationHeader) + (2 * GUARD_SIZE) > ARENA_CAPACITY)
+        return NULL;
+
+    uintptr_t current = (uintptr_t)&arena->buffer[arena->size];
+    uintptr_t aligned = (current + 15) & ~15;
+    size_t padding = aligned - current;
+
+    arena->size += padding; 
+    AllocationHeader *header = (AllocationHeader *)&arena->buffer[arena->size];
+    header->size = size;
+    header->tag = (uint32_t)header;
+    header->canary = CANARY_VALUE;
+
+    void *user_ptr = (void *)(header + 1);
+
+    memset((char *)header - GUARD_SIZE, 0xCC, GUARD_SIZE);
+    memset((char *)user_ptr + size, 0xCC, GUARD_SIZE);
+
+    arena->size += sizeof(AllocationHeader) + size + GUARD_SIZE;
+
+    return user_ptr;
 }
+
+int aarena_check_memory(void *ptr) {
+    if (!ptr) return 0;
+    AllocationHeader *header = ((AllocationHeader *)ptr) - 1;
+    if (header->canary != CANARY_VALUE) {
+        printf("Memory corruption detected: Canary mismatch!\n");
+        return 0;
+    }
+    for (size_t i = 0; i < GUARD_SIZE; i++) {
+        if (((char *)header)[-GUARD_SIZE + i] != (char)0xCC ||
+            ((char *)ptr)[header->size + i] != (char)0xCC) {
+            printf("Memory corruption detected: Guard page modified!\n");
+            return 0;
+        }
+    }
+    
+    return 1;
+}
+
+size_t aarena_alloc_size(void *ptr) {
+    if (!ptr) return 0;
+    AllocationHeader *header = ((AllocationHeader *)ptr) - 1;
+    return header->size;
+}
+
 
 void *aarena_alloc_aligned(AArena *arena, size_t size, size_t alignment) {
     uintptr_t current = (uintptr_t)&arena->buffer[arena->size];
@@ -62,11 +121,19 @@ void aarena_reset(AArena *arena) {
     arena->size = 0;
 }
 
-void aarena_free_to(AArena *arena, size_t marker) {
-    if (marker <= arena->size) arena->size = marker;
+void aarena_free_to(AArena *arena, Marker marker) {
+    if (marker <= arena->size) {
+        memset(&arena->buffer[marker], 0, arena->size - marker);
+        arena->size = marker;
+    }
 }
 
-size_t aarena_marker(AArena *arena) {
+void aarena_free(AArena *arena, size_t abytes) {
+    memset(&arena->buffer[abytes], 0, arena->size - abytes);
+    arena->size -= abytes;
+}
+
+Marker aarena_marker(AArena *arena) {
     return arena->size;
 }
 
@@ -141,11 +208,11 @@ void region_reset(ARegion *region) {
     region->offset = 0;
 }
 
-void region_free_to(ARegion *region, size_t marker) {
+void region_free_to(ARegion *region, Marker marker) {
     if (marker <= region->offset) region->offset = marker;
 }
 
-size_t region_marker(ARegion *region) {
+Marker region_marker(ARegion *region) {
     return region->offset;
 }
 
@@ -199,5 +266,5 @@ int aarena_memcmp(const void *s1, const void *s2, size_t n) {
     return memcmp(s1, s2, n);
 }
 
-#endif // ALLOCATOR_H
+#endif // MEMORY_H
 

@@ -13,6 +13,7 @@
 #endif
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 
 #if defined(__GNUC__) || defined(__clang__)
     #define DEPRECATED __attribute__((deprecated))
@@ -87,7 +88,22 @@ char *shift(int *argc, char ***argv) {
     return element;
 }
 
-
+// Returns index of the correct string
+int switchcmp(char *tc, ...) {
+    va_list args;
+    va_start(args, tc);
+    const char *arg;
+    int c = 0;
+    while ((arg = va_arg(args, const char *)) != NULL) {
+        if (strcmp(tc, arg) == 0) {
+            va_end(args);
+            return c;
+        } 
+        c++;
+    }
+    va_end(args);
+    return -1;
+} 
 
 #endif // CORE_H
 
